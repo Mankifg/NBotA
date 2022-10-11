@@ -18,9 +18,7 @@ TOKEN=[Discord Dev Token]
 When you cloned repo and put env varibles in .env run ```py main.py``` 
 
 # Contributing
-If you have an idea or code to make this bot better please submit a [Pull Request here](https://github.com/Mankifg/NBotA/pulls)
+If you have an idea or code to make this bot better please submit a [Pull Request here](https://github.com/Mankifg/NBotA/pulls).
 
 # Issues
-Same for issues if you find any issues submit it [here](https://github.com/Mankifg/NBotA/issues)
-
-
+Same for issues if you find any issues submit it [here](https://github.com/Mankifg/NBotA/issues).
