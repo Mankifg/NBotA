@@ -16,18 +16,20 @@ class playerCog(commands.Cog, name="player command"):
 	def __init__(self, bot:commands.bot):
 		self.bot = bot
         
-	@commands.command(name = "player",
-					usage="",
-					description = "Display the bot's player.")
+	@commands.command(name = "profile",
+					usage=" [name/surname] or [id]",
+					description = "Display the static players profile.")
 	@commands.cooldown(1, 2, commands.BucketType.member)
-	async def player(self, ctx, i1, i2=None):
+	async def profile(self, ctx, i1, i2=None):
 		
 		succes,pdata = getplayerbydata(i1,i2)
 
 		if not succes:
 			await ctx.send(f"The search query for `{i1} {i2}` is not found.")
 			return
-			
+
+		draft = pdata["draft"]
+		num = int(draft["pickNum"])	
 
 		await ctx.send(pdata)
 
@@ -35,7 +37,7 @@ class playerCog(commands.Cog, name="player command"):
 		
 
 		q = discord.Embed(title=f'{pdata["jersey"]} | {pdata["firstName"]} {pdata["lastName"]} | {getteamfromid(pdata["teamId"])}', #? add team
-			description=f"User's id: {pdata['personId']}",
+			description=f"User's id: {pdata['personId']}, Team's id: {pdata['teamId']}",
 			color=discord.Color.blue()
 		)
 
@@ -77,8 +79,7 @@ class playerCog(commands.Cog, name="player command"):
 			name="ALL Teams", value=index,inline=False
 		)
 
-		draft = pdata["draft"]
-		num = int(draft["pickNum"])
+		
 
 		if num == 1:
 			endpoint = "st"
