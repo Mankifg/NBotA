@@ -1,4 +1,4 @@
-![Picture](https://cdn.nba.com/logos/leagues/L/logo-nba.svg)
+<img src="https://cdn.nba.com/logos/leagues/L/logo-nba.svg" width="400" height="300" />
 
 # NBotA
 An open-source NBA Discord bot that tracks stats of games, players and teams.
