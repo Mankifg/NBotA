@@ -130,5 +130,4 @@ dmypy.json
 
 #other 
 Cogs/__pycache__/
-ServerIcon.png
-data/bank.json
+.vscode/
