@@ -1,18 +1,19 @@
 import os
 import json
 from datetime import datetime as dt
+import re
 import time
 import requests
  
 players_link = "https://data.nba.net/10s/prod/v1/{}/players.json"
 team_link = "https://data.nba.net/10s/prod/v1/{}/teams.json"
-
+profile_url = "https://data.nba.net/10s/prod/v1/2022/players/{}.json"
 
 def getplayers():
-    return requests.get(players_link.replace("{}",str(dt.now().year))).json()
+    return requests.get(players_link.format(dt.now().year)).json()
 
 def getteams():
-    return requests.get(team_link.replace("{}",str(dt.now().year))).json()
+    return requests.get(team_link.format(dt.now().year)).json()
 
 
 def getteamfromid(id):
@@ -51,3 +52,6 @@ def getplayerbydata(data1,data2=None):
     else:
         success = False
         return success, -1
+
+def getprofilepersondata(id):
+    return requests.get(profile_url.format(id)).json

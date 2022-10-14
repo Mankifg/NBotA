@@ -35,8 +35,8 @@ class playerCog(commands.Cog, name="player command"):
 
 		dateofbirth = pdata["dateOfBirthUTC"].split("-")
 		
-
-		q = discord.Embed(title=f'{pdata["jersey"]} | {pdata["firstName"]} {pdata["lastName"]} | {getteamfromid(pdata["teamId"])}', #? add team
+		
+		q = discord.Embed(title=f'{pdata["jersey"]} | {pdata["firstName"]} {pdata["lastName"]} | {getteamfromid(pdata["teamId"])}',
 			description=f"User's id: {pdata['personId']}, Team's id: {pdata['teamId']}",
 			color=discord.Color.blue()
 		)
@@ -98,7 +98,7 @@ class playerCog(commands.Cog, name="player command"):
 
 		q.add_field(
 			name="Other Data",
-			value=f"Playing in NBA for **{pdata['yearsPro']}**, Citizenship: **{pdata['country']}**",
+			value=f"Playing in NBA for **{pdata['yearsPro']}** years, Citizenship: **{pdata['country']}**",
 			inline=False
 		)
 		await ctx.send(embed=q)
