@@ -7,7 +7,10 @@ import requests
  
 players_link = "https://data.nba.net/10s/prod/v1/{}/players.json"
 team_link = "https://data.nba.net/10s/prod/v1/{}/teams.json"
-profile_url = "https://data.nba.net/10s/prod/v1/2022/players/{}.json"
+profile_url = "https://data.nba.net/10s/prod/v1/2022/players/{}_profile.json"
+
+total = ["full","all","total","f","t"]
+latest = ["latest","l"]
 
 def getplayers():
     return requests.get(players_link.format(dt.now().year)).json()
@@ -54,4 +57,44 @@ def getplayerbydata(data1,data2=None):
         return success, -1
 
 def getprofilepersondata(id):
-    return requests.get(profile_url.format(id)).json
+    return requests.get(profile_url.format(id)).json()
+
+def frommodetodata(data,mode):
+    data = data["league"]["standard"]["stats"]
+    mode = mode.lower()
+
+    if mode == "": 
+        mode = "latest"
+
+
+    if mode in latest:
+        mode = "Latest"
+        return True, data["latest"], mode
+    elif mode in total:
+        mode = "Total"
+        return True, data["careerSummary"],mode
+
+
+    else:
+        try:
+            num = int(mode)
+        except ValueError:
+            return False, "Wrong mode.", None
+        
+        if len(str(num)) == 2:
+            if num > 47:     #! first nba game i think, if you think you can make it better pls do it
+                num = f"19{num}"
+            else:
+                num = f"20{num}"
+
+        data = data["regularSeason"]["season"]  
+        found = False 
+        for i in range(len(data)):
+            if int(data[i]["seasonYear"]) == int(num):
+                found = True
+                data = data[i]
+
+        if not found:
+            return False,"Date not found", None
+        else:
+            return True, data,str(num)
