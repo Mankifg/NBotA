@@ -9,7 +9,7 @@ players_link = "https://data.nba.net/10s/prod/v1/{}/players.json"
 team_link = "https://data.nba.net/10s/prod/v1/{}/teams.json"
 profile_url = "https://data.nba.net/10s/prod/v1/2022/players/{}_profile.json"
 
-total = ["full","all","total","f","t"]
+total = ["full","all","total","f","t","a"]
 latest = ["latest","l"]
 
 def getplayers():
@@ -87,14 +87,26 @@ def frommodetodata(data,mode):
             else:
                 num = f"20{num}"
 
-        data = data["regularSeason"]["season"]  
+        data = data["regularSeason"]
+
         found = False 
-        for i in range(len(data)):
-            if int(data[i]["seasonYear"]) == int(num):
+        for i in range(len(data["season"])):
+            if str(data["season"][i]["seasonYear"]) == str(num):
                 found = True
-                data = data[i]
+                a = data["season"][i]["total"]
 
         if not found:
             return False,"Date not found", None
         else:
-            return True, data,str(num)
+            return True, a,str(num)
+
+all_prefix = ["ppg" ,"rpg", "apg", "mpg", "topg", "spg", "bpg", "tpp", "ftp", 
+"fgp", "assists", "blocks", "steals", "turnovers", "offReb", "defReb", "totReb", "fgm", "fga",
+ "tpm", "tpa", "ftm", "fta", "pFouls", "points", "gamesPlayed", "gamesStarted", "plusMinus", "min", "dd2", "td3" ]
+
+def getwantedlist(data):
+    ret = []
+    for prefix in all_prefix:
+        ret.append(data[prefix])
+
+    return ret
